@@ -1,10 +1,8 @@
 ---
 title: "[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all"
-date: 2022-05-19
+createdAt: 2022-05-19
 tags: ["ctf", "HackTheBox"]
-categories: "pwn"
-authors:
-  - nasm
+type: 'Writeups'
 ---
 
 Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.

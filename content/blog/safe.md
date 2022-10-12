@@ -1,9 +1,8 @@
-+++
+---
 title = "[TRACS 2021 - RE] Coffre"
 tags = ["ctf", "ret2school", "TRACS 2021", "TRACS", "nasm", "Alol", "reverse", "RE", "IRL", "rand", "2021"]
-date = "2021-12-05"
-authors = ["nasm"]
-+++
+createdAt = 2021-12-05
+---
 
 ## Intro
 >  Epreuve 12-3 – Coffre

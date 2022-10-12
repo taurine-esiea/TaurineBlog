@@ -1,10 +1,8 @@
 ---
 title: "[corCTF 2022 - pwn] zigzag"
-date: 2022-08-08
+createdAt: 2022-08-08
 tags: ["ctf", "corCTF", "2022", "heap", "nasm", "pwn", "zig"]
-categories: "pwn"
-authors:
-  - nasm
+type: 'Writeups'
 ---
 
 ## Introduction

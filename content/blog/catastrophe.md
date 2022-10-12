@@ -1,7 +1,7 @@
 ---
 title: "[diceCTF 2022 - pwn] catastrophe"
 tags: ["ctf", "ret2school", "diceCTF", "pwn", "nasm", "aaSSfxxx", "2022", "FSOP", "heap"]
-date: "2022-07-28"
+createdAt: 2022-07-28
 authors:
   - nasm
 ---

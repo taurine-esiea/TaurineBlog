@@ -1,10 +1,8 @@
 ---
 title: "[corCTF 2022 - pwn] cshell2"
-date: 2022-08-07
+createdAt: 2022-08-07
 tags: ["ctf", "corCTF", "2022", "heap", "nasm", "pwn"]
-categories: "pwn"
-authors:
-  - nasm
+type: 'Writeups'
 ---
 
 ## Introduction
