@@ -1,9 +1,12 @@
 ---
 createdAt: 2021-12-05
 title: "[TRACS 2021 - RE] Coffre"
+description: "Basically, we have to crack open an electronic safe."
 type: 'Writeups'
 tags: ["pwn"]
 ---
+
+# [TRACS 2021 - RE] Coffre
 
 ## Intro
 >  Epreuve 12-3 – Coffre

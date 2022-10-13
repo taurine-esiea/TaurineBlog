@@ -1,9 +1,12 @@
 ---
 createdAt: 2022-03-04                                                                       
 title: "[Breizh CTF 2022 - pwn] Faible Ty Reseau"
+description: "Faible Ty Réseau is a basic heap-like challenge, it allows us to create a configuration, edit it, call a function pointer on it and finally to free it."
 type: 'Writeups'
 tags: ["pwn"]
 ---
+
+# [Breizh CTF 2022 - pwn] Faible Ty Reseau
 
 Faible Ty Réseau is a basic heap-like challenge, it allows us to create a configuration, edit it, call a function pointer on it and finally to free it:
 ```c

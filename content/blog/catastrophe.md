@@ -6,6 +6,8 @@ type: 'Writeups'
 tags: ["pwn"]
 ---
 
+# [diceCTF 2022 - pwn] catastrophe
+
 # Introduction
 
 > I just learned how to use malloc and free... am I doing this right?

@@ -1,9 +1,12 @@
 ---
 createdAt: 2022-05-19
 title: "[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all"
+description: "Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin."
 type: 'Writeups'
 tags: ["pwn"]
 ---
+
+# [HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all
 
 Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.
 Find the tasks and the final exploit [here](https://github.com/ret2school/ctf/blob/master/2022/apocalypse/onceAndmore/) and [here](https://github.com/ret2school/ctf/blob/master/2022/apocalypse/onceAndmore/exploit.py).

@@ -1,9 +1,12 @@
 ---
 createdAt: 2022-08-19
 title: "Linux file stream internals for fun and profit"
+description: "File streams are now a very common attack surface, here is a high level introduction that should make you understand the design of known attacks beyond the code reading for a particular function."
 type: 'Projects'
 tags: ["pwn"]
 ---
+
+# Linux file stream internals for fun and profit
 
 # Introduction
 
