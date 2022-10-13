@@ -1,5 +1,5 @@
 ---
-createdAt: 2022-07-28
+createdAt: 2022-10-28
 title: "[diceCTF 2022 - pwn] catastrophe"
 description: "catastrophe is a heap challenge I did during the diceCTF 2022."
 type: 'Writeups'
@@ -11,8 +11,6 @@ tags: ["pwn"]
 > I just learned how to use malloc and free... am I doing this right?
 
 catastrophe is a heap challenge I did during the diceCTF 2022. I did have a lot of issues with the libc and the dynamic linker, thus I did a first time the challenge with the libc that was in `/lib/libc.so.6`, then I figured out thanks to my teammate [supersnail](../../tags/supersnail) that I was using the wrong libc. Then I did it again with the right libc but the dynamic linker was (again) wrong and I lost a loot of time on it. So well, the challenge wasn't pretty hard but I took a funny way to solve it because I thought the libc had `FULL RELRO` while  it had only `PARTIAL RELRO`. Find the exploit and the tasks [right here](https://github.com/ret2school/ctf/tree/master/2022/diceCTF/pwn/catastrophe).
-
-{{< toc >}}
 
 # TL; DR
 
