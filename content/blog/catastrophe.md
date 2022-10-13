@@ -1,9 +1,9 @@
 ---
-title: "[diceCTF 2022 - pwn] catastrophe"
-tags: ["ctf", "ret2school", "diceCTF", "pwn", "nasm", "aaSSfxxx", "2022", "FSOP", "heap"]
 createdAt: 2022-07-28
-authors:
-  - nasm
+title: "[diceCTF 2022 - pwn] catastrophe"
+description: "catastrophe is a heap challenge I did during the diceCTF 2022."
+type: 'Writeups'
+tags: ["ctf", "ret2school", "diceCTF", "pwn", "nasm", "aaSSfxxx", "2022", "FSOP", "heap"]
 ---
 
 # Introduction
