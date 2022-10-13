@@ -1,5 +1,5 @@
 ---
-createdAt: 2022-10-28
+createdAt: 2022-07-28
 title: "[diceCTF 2022 - pwn] catastrophe"
 description: "catastrophe is a heap challenge I did during the diceCTF 2022."
 type: 'Writeups'

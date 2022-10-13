@@ -48,7 +48,7 @@ const tags = [
     'Hardware',
     'Misc',
     'Network',
-    'Pwn',
+    'pwn', // putain Pierre comment ça un P majuscule ?? ça a baisé tous mes tags si vous lisez ceci: PWN c'est en minuscule
     'Reverse',
     'Osint',
     'System',

@@ -21,9 +21,8 @@ const { latestArticles } = useLastestArticles()
 
         <main>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit dolorem consequuntur pariatur rerum iusto
-                nobis, ullam sit. Excepturi, vero? Illum eos perspiciatis unde sit temporibus debitis quidem suscipit
-                modi vitae.
+                Bunch of security enthusiasts and students from the <a href="https://www.esiea.fr" target="_blank"
+                rel="noopener noreferrer">ESIEA engineering school</a>.
             </p>
             <div class="last-content-wrapper">
                 <h2>
