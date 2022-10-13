@@ -5,7 +5,7 @@ export default defineNuxtConfig({
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'τ-rine est un groupe d\'enthousiaste en sécurité et d\'étudiants de l\'école d\'ingénieur ESIEA.' },
+            { hid: 'description', name: 'description', content: 'τ-rine  is  bunch of security enthusiasts and students from the ESIEA engineering school.' },
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/taurine_icon.png' }
