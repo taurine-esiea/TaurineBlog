@@ -1,6 +1,6 @@
 ---
-createdAt: 2022-08-08
 title: "[corCTF 2022 - pwn] zigzag"
+createdAt: 2022-08-08
 type: 'Writeups'
 tags: ["pwn"]
 ---
