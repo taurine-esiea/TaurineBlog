@@ -18,12 +18,6 @@ useHead({
             articles.
         </p>
 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt molestias est voluptatibus, saepe quod
-            fugit id quasi amet veritatis accusantium cum cupiditate nisi. Magnam possimus veniam labore voluptatem
-            autem sequi.
-        </p>
-
         <div class="img-container">
             <img src="@/assets/images/taurine_head_border.png" alt="Logo club sécu Esiea" />
         </div>
