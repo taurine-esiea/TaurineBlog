@@ -6,9 +6,9 @@ tags: ["Crypto"]
 type: 'Writeups'
 ---
 
-```
 # The oracle's apprentice
 
+```
 Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She's new to the job so if she forgets anything... you'll just have to deal with it.
 
 Good luck !

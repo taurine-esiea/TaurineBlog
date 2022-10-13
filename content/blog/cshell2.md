@@ -2,7 +2,7 @@
 createdAt: 2022-08-07
 title: "[corCTF 2022 - pwn] cshell2"
 type: 'Writeups'
-description: "`cshell2` is a heap challenge I did during the [corCTF 2022](https://ctftime.org/event/1656) event."
+description: "cshell2 is a heap challenge I did during the corCTF 2022 event."
 tags: ["pwn"]
 ---
 

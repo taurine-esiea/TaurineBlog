@@ -1,7 +1,7 @@
 ---
 title: "[corCTF 2022 - pwn] zigzag"
 createdAt: 2022-08-08
-description: "`zigzag` is a zig heap challenge I did during the [corCTF 2022](https://ctftime.org/event/1656) event."
+description: "zigzag is a zig heap challenge I did during the corCTF 2022 event."
 type: 'Writeups'
 tags: ["pwn"]
 ---
