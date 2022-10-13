@@ -9,8 +9,6 @@ tags: ["pwn"]
 
 File streams are now a very common attack surface, here is a high level introduction that should make you understand the design of known attacks beyond the code reading for a particular function. I already talked about FSOP [here](../catastrophe/#fsop-on-stdout-to-leak-environ). This article reviews [glibc 2.36](https://elixir.bootlin.com/glibc/glibc-2.36/source). Most of this article comes from [this](https://ray-cp.github.io/archivers/IO_FILE_arbitrary_read_write) awesome series of articles about the `_IO_FILE` strcuture.
 
-{{< toc >}}
-
 # Global design
 
 As said in my previous writeup:
