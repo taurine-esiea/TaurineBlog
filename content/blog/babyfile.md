@@ -1,8 +1,8 @@
 ---
+createdAt: 2022-10-10
 title: "[SECCON 2022 - pwn] babyfile"
-createdAT: 2022-10-10
 description: "New way to gain code execution on modern glibc."
-types: 'Writeups'
+type: 'Writeups'
 tags: ["pwn"]
 ---
 
