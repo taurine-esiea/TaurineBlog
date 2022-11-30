@@ -10,8 +10,6 @@ tags = ["pwn"]
 
 babyfile is a file stream exploitation I did during the [SECCON CTF 2022 Quals](https://ctftime.org/event/1764) event. I didn’t succeed to flag it within the 24 hours :(. But anyway I hope this write up will be interesting to read given I show another way to gain code execution -- I have not seen before -- based on `_IO_obstack_jumps`! The related files can be found [here](https://github.com/ret2school/ctf/tree/master/2022/seccon/pwn/babyfile). If you're not familiar with file stream internals, I advice you to read my previous writeups about file stream exploitation, especially [this one](../catastrophe) and [this other one](../filestream).
 
-{{< toc >}}
-
 ## TL;DR
 
 - Populate base buffer with heap addresses with the help of `_IO_file_doallocate`.
@@ -24,7 +22,6 @@ babyfile is a file stream exploitation I did during the [SECCON CTF 2022 Quals](
 
 The challenge is basically opening `/dev/null`, asking for an offset and a value to write at `fp + offset`. And we can freely flush `fp`. The source code is prodided:
 
-{{< expand "Source code" "..." >}}
 Source code:
 ```c
 #include <stdio.h>
@@ -106,16 +103,15 @@ static int getint(void){
 	return atoi(buf);
 }
 ```
-{{</ expand >}}
 
 # Exploitation ideas
 
 I tried (in this order) to:
 
-- Get a libc leak by calling `_IO_file_underflow` to make input and output buffers equal to the base buffer that contains with the help of `_IO_file_doallocate` a heap address. And then flushing the file stream to leak the libc. {{< emojify ":white_check_mark:" >}}
-- Get a heap leak by leaking a heap pointer stored within the `main_arena`. {{< emojify ":white_check_mark:" >}}
-- Get an arbitrary write with a tcache dup technique, I got `__free_hook` as the last pointer available in the target tcache bin but I didn't succeeded to get a shell >.<. {{< emojify ":x:" >}}
-- Call primitive with control over the first argument by calling `_IO_obstack_overflow` (part of the `_IO_obstack_jumps` vtable). Then it allows us to call `system("/bin/sh\x00")`. {{< emojify ":white_check_mark:" >}}
+- Get a libc leak by calling `_IO_file_underflow` to make input and output buffers equal to the base buffer that contains with the help of `_IO_file_doallocate` a heap address. And then flushing the file stream to leak the libc.
+- Get a heap leak by leaking a heap pointer stored within the `main_arena`.
+- Get an arbitrary write with a tcache dup technique, I got `__free_hook` as the last pointer available in the target tcache bin but I didn't succeeded to get a shell >.<
+- Call primitive with control over the first argument by calling `_IO_obstack_overflow` (part of the `_IO_obstack_jumps` vtable). Then it allows us to call `system("/bin/sh\x00")`.
 
 ## Libc leak
 
@@ -142,7 +138,6 @@ The initial state of the file stream looks like this:
 ```
 
 It initializes the base buffer to a fresh `BUFSIZE` allocated buffer.
-{{< expand "_IO_default_doallocate" "..." >}}
 ```c
 int
 _IO_default_doallocate (FILE *fp)
@@ -157,9 +152,8 @@ _IO_default_doallocate (FILE *fp)
   return 1;
 }
 ```
-{{< /expand >}}
 
-{{< expand "fp state after the _IO_default_doallocate" "..." >}}
+fp state after the _IO_default_doallocate" "..."
 ```
 0x559c0955e2a0: 0x00000000fbad2488      0x0000000000000000
 0x559c0955e2b0: 0x0000000000000000      0x0000000000000000
@@ -177,11 +171,9 @@ _IO_default_doallocate (FILE *fp)
 0x559c0955e370: 0x0000000000000000      0x00007f99db7bc4a8
 0x559c0955e380: 0x0000000100000001      0x00007f99db7c6580
 ```
-{{< /expand >}}
 
 Once we have a valid pointer into the base buffer, we try to get into both the input and output buffer the base pointer.
 Given the input / output buffer are `NULL` and that `fp->flags` is `0xfbad1800 | 0x8000` (plus `0x8000` => `_IO_USER_LOCK` to not stuck into `fflush`), we do not have issues with the checks. The issue with the `_IO_SYSREAD` call is described in the code below.
-{{< expand "_IO_new_file_underflow" "..." >}}
 ```c
 int
 _IO_new_file_underflow (FILE *fp)
@@ -268,9 +260,7 @@ _IO_new_file_underflow (FILE *fp)
 }
 libc_hidden_ver (_IO_new_file_underflow, _IO_file_underflow)
 ```
-{{< /expand >}}
 
-{{< expand "_IO_default_pbackfail" "..." >}}
 ```c
 int
 _IO_default_pbackfail (FILE *fp, int c)
@@ -330,10 +320,9 @@ _IO_default_pbackfail (FILE *fp, int c)
 }
 libc_hidden_def (_IO_default_pbackfail)
 ```
-{{< /expand >}}
 
 
-{{< expand "fp state after the _IO_new_file_underflow" "..." >}}
+fp state after the call of_IO_new_file_underflow
 ```
 0x559c0955e2a0: 0x00000000fbad2588      0x0000559c0956050f
 0x559c0955e2b0: 0x0000559c09560590      0x0000559c09560490
@@ -351,7 +340,6 @@ libc_hidden_def (_IO_default_pbackfail)
 0x559c0955e370: 0x0000000000000000      0x00007f99db7bc460
 0x559c0955e380: 0x0000000100000001      0x00007f99db7c6580
 ```
-{{< /expand >}}
 
 Once we have the pointers at the right place, we can simply do some partial overwrites to the portion of the heap that contains a libc pointer. Indeed by taking a look at the memory at `fp->_IO_base_buffer & ~0xff` (to avoid 4 bits bruteforce) we can that we can directly reach a libc pointer:
 ```
@@ -368,7 +356,6 @@ Once we have the pointers at the right place, we can simply do some partial over
 ```
 
 Then we have to actually doing the partial overwrite by corrupting certain pointers to leak this address with the help of `_IO_fflush`:
-{{< expand "_IO_fflush" "..." >}}
 ```c
 int
 _IO_fflush (FILE *fp)
@@ -387,10 +374,8 @@ _IO_fflush (FILE *fp)
 }
 libc_hidden_def (_IO_fflush)
 ```
-{{< /expand >}}
 
 It ends up calling `_IO_new_file_sync(fp)`:
-{{< expand "_IO_new_file_sync" "..." >}}
 ```c
 int
 _IO_new_file_sync (FILE *fp)
@@ -420,11 +405,9 @@ _IO_new_file_sync (FILE *fp)
 }
 libc_hidden_ver (_IO_new_file_sync, _IO_file_sync)
 ```
-{{< /expand >}}
 
 I already talked about the way we can gain arbitrary read with FSOP attack on `stdout` in [this article](../catastrophe). The way we will get a leak is almost the same, first we need to trigger the first condition in `_IO_new_file_sync` in such a way that `fp->_IO_write_ptr > fp->_IO_write_base` will trigger `_IO_do_flush(fp)`. Then `_IO_do_flush` triggers the classic code path I dump right below. I will not comment all of it, the only thing you have to remind is that given most of the buffers are already initialized to a valid heap address beyond the target we do not have to rewrite them, this way we will significantly reduce the amount of partial overwrite.
 
-{{< expand "_IO_do_flush" "..." >}}
 ```c
 #define _IO_do_flush(_f) \
   ((_f)->_mode <= 0							      \
@@ -434,12 +417,10 @@ I already talked about the way we can gain arbitrary read with FSOP attack on `s
 		   ((_f)->_wide_data->_IO_write_ptr			      \
 		    - (_f)->_wide_data->_IO_write_base)))
 ```
-{{< /expand >}}
 
 **Condition**: 
 `(_f)->_IO_write_ptr-(_f)->_IO_write_base)` >= `sizeof(uint8_t* )`, `(_f)->_IO_write_base` == `target`.
 
-{{< expand "_IO_do_write" "..." >}}
 ```c
 int
 _IO_new_do_write (FILE *fp, const char *data, size_t to_do)
@@ -449,9 +430,7 @@ _IO_new_do_write (FILE *fp, const char *data, size_t to_do)
 }
 libc_hidden_ver (_IO_new_do_write, _IO_do_write)
 ```
-{{< /expand >}}
 
-{{< expand "new_do_write" "..." >}}
 ```c
 static size_t
 new_do_write (FILE *fp, const char *data, size_t to_do)
@@ -483,7 +462,6 @@ new_do_write (FILE *fp, const char *data, size_t to_do)
   return count;
 }
 ```
-{{< /expand >}}
 
 **Note**: Given `fp->_IO_read_end != fp->_IO_write_base`, `fp->_IO_read_end` is the save buffer that has been allocated and switched in `_IO_default_pbackfail` and that `_IO_write_base` contains the target memory area, we have to include the `_IO_IS_APPENDING` flag into `fp->_flags` to avoid the `_IO_SYSSEEK` which would fail and then return. Therefore we can finally reach the `_IO_SYSWRITE` that will leak the libc pointer.
 
@@ -596,7 +574,6 @@ _IO_obstack_overflow (FILE *fp, int c)
 ```
 
 The `struct _IO_obstack_file` is defined as follows:
-{{< expand "struct _IO_obstack_file" "..." >}}
 ```c
 struct _IO_obstack_file
 {
@@ -604,11 +581,9 @@ struct _IO_obstack_file
   struct obstack *obstack;
 };
 ```
-{{< /expand >}}
 
 Which means right after the `vtable` field within the file stream should be a pointer toward a `struct obstack`.
 
-{{< expand "struct obstack" "..." >}}
 ```c
 struct obstack          /* control current object in current chunk */
 {
@@ -639,11 +614,9 @@ struct obstack          /* control current object in current chunk */
 				     compatibility.  */
 };
 ```
-{{< /expand >}}
 
 Once `obstack_1grow` is called, if `__o->next_free + 1 > __o->chunk_limit`, `_obstack_newchunk` gets called.
 
-{{< expand "obstack_1grow" "..." >}}
 ```c
 # define obstack_1grow(OBSTACK, datum)					      \
   __extension__								      \
@@ -653,11 +626,9 @@ Once `obstack_1grow` is called, if `__o->next_free + 1 > __o->chunk_limit`, `_ob
        obstack_1grow_fast (__o, datum);				      \
        (void) 0; })
 ```
-{{< /expand >}}
 
 **Condition**: `__o->next_free + 1 > __o->chunk_limit`.
 
-{{< expand "_obstack_newchunk" "..." >}}
 ```c
 /* Allocate a new current chunk for the obstack *H
    on the assumption that LENGTH bytes need to be added
@@ -734,11 +705,9 @@ _obstack_newchunk (struct obstack *h, int length)
 libc_hidden_def (_obstack_newchunk)
 # endif
 ```
-{{< /expand >}}
 
 The interesting part of the function is the call to the `CALL_CHUNKFUN` macro that calls a raw *unencrypted* function pointer referenced by the `obstack` structure with either a controlled argument (`(h)->extra_arg`) or only with the size.
 
-{{< expand "CALL_FREEFUN" "..." >}}
 ```c
 # define CALL_FREEFUN(h, old_chunk) \
   do { \
@@ -748,7 +717,6 @@ The interesting part of the function is the call to the `CALL_CHUNKFUN` macro th
 	(*(void (*)(void *))(h)->freefun)((old_chunk));		      \
     } while (0)
 ```
-{{< /expand >}}
 
 If I summarize, to call `system("/bin/sh"` we need to have:
 - `__o->next_free + 1 > __o->chunk_limit`
@@ -804,7 +772,6 @@ $
 
 # Annexes
 
-{{< expand "Full exploit code" "..." >}}
 Final exploit:
 ```py
 #!/usr/bin/env python
@@ -1062,4 +1029,3 @@ SECCON{r34d_4nd_wr173_4nywh3r3_w17h_f1l3_57ruc7ur3}
 $
 """
 ```
-{{< /expand >}}
