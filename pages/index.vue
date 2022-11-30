@@ -26,7 +26,7 @@ const { latestArticles } = useLastestArticles()
                     Technical blog of the
                     <a href="https://www.esiea.fr" target="_blank" rel="noopener noreferrer">
                         ESIEA
-                    </a>'s cybersecurity club.
+                    </a> cybersecurity club.
                 </center>
             </p>
             <div class="last-content-wrapper">
