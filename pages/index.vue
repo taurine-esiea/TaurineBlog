@@ -21,13 +21,10 @@ const { latestArticles } = useLastestArticles()
 
         <main>
             <p>
-                
-                <center>
                     Technical blog of the
                     <a href="https://www.esiea.fr" target="_blank" rel="noopener noreferrer">
                         ESIEA
                     </a> cybersecurity club.
-                </center>
             </p>
             <div class="last-content-wrapper">
                 <h2>

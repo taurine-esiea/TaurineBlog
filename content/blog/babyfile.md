@@ -3,7 +3,7 @@ title: "[SECCON 2022 - pwn] babyfile"
 createdAT: 2022-10-10
 description: "New way to gain code execution on modern glibc."
 types: 'Writeups'
-tags = ["pwn"]
+tags: ["pwn"]
 ---
 
 # Introduction
@@ -15,7 +15,7 @@ babyfile is a file stream exploitation I did during the [SECCON CTF 2022 Quals](
 - Populate base buffer with heap addresses with the help of `_IO_file_doallocate`.
 - Make both input and output buffer equal to the base buffer with the help of `_IO_file_underflow`.
 - Partial overwrite on right pointers to get a libc leak by simply flushing the file stream.
-- Leak a heap address by printing a pointer stored within the main_arena.
+- Leak a heap address by printing a pointer stored within the `main_arena`.
 - `_IO_obstack_overflow` ends up calling a function pointer stored within the file stream we have control over which leads to a call primitive (plus control over the first argument). Then I just called `system("/bin/sh\x00")`.
 
 # What we have
