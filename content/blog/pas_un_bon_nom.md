@@ -14,6 +14,8 @@ tags: ["Forensic"]
 
 > I was just sitting there on my PC, m'kay? I'm downloading movies and stuff, mkay? And then there's this weird message that I have to pay Dogecoin to decrypt my data. I didn't do it... so now my data is encrypted :( So here, take the hard drive, it's not like it's useful now... Unless it was possible to find the key used by that evil hacker, m'kay? Would you like it? You'd be lovely thank you!
 
+### Initial step
+
 ```bash
 ls 
 #pc-jeane.ova
@@ -33,6 +35,8 @@ The two files with capitalized names stand out, and indeed
 ![image-20221111230502233](@/assets/images/blog/dghack/image6.png)
 
 It seems that the owner has downloaded a lot of stuff including a supra legit GTA-V.
+
+### In-depth investigation
 
 *GTA_V_installer.py*
 
@@ -128,7 +132,7 @@ if you want to find the encryption key for the xor operation, you just have to x
 
 ![image-20221111233550094](@/assets/images/blog/dghack/image8.png)
 
-At a glance, the key quickly appears to us
+At a glance, the key appears to us
 
 ```bash
 REdIQUNLezdIMTVfMVNfN0gzX0szWV9HMVYzTl83MF83SDNfR1RBX1ZfUjRONTBNVzRSM19WMUM3MU01fQo=
