@@ -32,7 +32,7 @@ ls
 ```
 
 The two files with capitalized names stand out, and indeed
-![image-20221111230502233](https://taurine.vercel.app/images/blog/dghack2022/image6.png)
+![image-20221111230502233](https://taurine.vercel.app/images/blog/dghack2022/image5.png)
 
 It seems that the owner has downloaded a lot of stuff including a supra legit GTA-V.
 
@@ -123,14 +123,14 @@ These are the files that allow you to create shortcuts for launching application
 
 I get the two computer.desktop that I display both in hexa
 
-![image-20221111233202365](https://taurine.vercel.app/images/blog/dghack2022/image7.png)
+![image-20221111233202365](https://taurine.vercel.app/images/blog/dghack2022/image6.png)
 
 
 Given computer(1).desktop=A (original file) and computer.desktop=C (our encrypted file) 
 
 if you want to find the encryption key for the xor operation, you just have to xor A and C (to obtain B)
 
-![image-20221111233550094](https://taurine.vercel.app/images/blog/dghack2022/image8.png)
+![image-20221111233550094](https://taurine.vercel.app/images/blog/dghack2022/image7.png)
 
 At a glance, the key appears to us
 
