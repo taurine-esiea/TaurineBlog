@@ -75,7 +75,7 @@ To find this backdoor, I go through the different ways to apply persistence on l
 tree -a etc/systemd
 ```
 
-![image-20221111172240570](@/assets/images/blog/dghack/image1.png)
+![image-20221111172240570](https://taurine.vercel.app/images/blog/dghack/image1.png)
 
 I look a little bit randomly at each of the files until I find an interesting one
 
@@ -83,7 +83,7 @@ I look a little bit randomly at each of the files until I find an interesting on
 cat etc/systemd/system/systembd.service
 ```
 
-![image-20221111172352917](@/assets/images/blog/dghack/image2.png)
+![image-20221111172352917](https://taurine.vercel.app/images/blog/dghack/image2.png)
 
 so when you give "start_backdoor" as an option to groupdel, everything is normal?
 
@@ -91,7 +91,7 @@ It is likely that this groupdel is not the classic groupdel so we should decompi
 
 - focus on **main()**:
 
-![image-20221111172509945](@/assets/images/blog/dghack/image3.png)
+![image-20221111172509945](https://taurine.vercel.app/images/blog/dghack/image3.png)
 
 there is indeed a start_backdoor function, but it comes from an external library
 
@@ -99,7 +99,7 @@ there is indeed a start_backdoor function, but it comes from an external library
 readelf -d usr/sbin/groupdel
 ```
 
-![image-20221111172856523](@/assets/images/blog/dghack/image4.png)
+![image-20221111172856523](https://taurine.vercel.app/images/blog/dghack/image4.png)
 
 
 We now need to find the libsysd.so file
@@ -113,7 +113,7 @@ We can also analyze it with ghidra
 
 - focus on **start_backdoor()**
 
-![image-20221111173157204](@/assets/images/blog/dghack/image5.png)
+![image-20221111173157204](https://taurine.vercel.app/images/blog/dghack/image5.png)
 
 
 it seems like the flag get printed but it is base64 encoded
