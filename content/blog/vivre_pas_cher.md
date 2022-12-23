@@ -91,7 +91,9 @@ It is likely that this groupdel is not the classic groupdel so we should decompi
 
 - focus on **main()**:
 
-![image-20221111172509945](https://taurine.vercel.app/images/blog/dghack2022/image3.png)
+![image-20221111172509945](https://taurine.vercel.app/images/blog/dghack2022/main.png)
+
+![image-20221111172509945](https://taurine.vercel.app/images/blog/dghack2022/back_door.png)
 
 there is indeed a start_backdoor function, but it comes from an external library
 
@@ -99,7 +101,7 @@ there is indeed a start_backdoor function, but it comes from an external library
 readelf -d usr/sbin/groupdel
 ```
 
-![image-20221111172856523](https://taurine.vercel.app/images/blog/dghack2022/main.png)
+![image-20221111172856523](https://taurine.vercel.app/images/blog/dghack2022/image3.png)
 
 
 We now need to find the libsysd.so file
@@ -113,7 +115,7 @@ We can also analyze it with ghidra
 
 - focus on **start_backdoor()**
 
-![image-20221111173157204](https://taurine.vercel.app/images/blog/dghack2022/back_door.png)
+![image-20221111173157204](https://taurine.vercel.app/images/blog/dghack2022/image4.png)
 
 
 it seems like the flag get printed but it is base64 encoded
